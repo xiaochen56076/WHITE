@@ -1,8 +1,8 @@
-#include<stdio.h>
+ï»¿#include<stdio.h>
 #include<easyx.h>
 #include<time.h>
-int Po[5];//Ã¿¸öºÚ¿éÎ»ÖÃ
-int BX, BY;
+int Po[5];//æ¯ä¸ªé»‘å—ä½ç½®
+int BX, BY;//æ¯ä¸ªé»‘å—çš„åæ ‡
 
 
 
@@ -11,7 +11,7 @@ void Init_Black()
 	for (int i = 0; i < 5; i++)
 	{
 		Po[i] = rand() % 4;
-		printf("%d = %d\n", i, Po[i]);//Õâ¸öÊÇÎªÁË·½±ã¼ì²éÎ»ÖÃ²ÅÔÚ¿ØÖÆÌ¨¼ÓµÄ£¬Ö»ÊÇ¼ì²â¶øÒÑ
+		printf("%d = %d\n", i, Po[i]);//è¿™ä¸ªæ˜¯ä¸ºäº†æ–¹ä¾¿æ£€æŸ¥ä½ç½®æ‰åœ¨æ§åˆ¶å°åŠ çš„ï¼Œåªæ˜¯æ£€æµ‹è€Œå·²ğŸ˜Š
 	}
 }
 
@@ -42,11 +42,11 @@ void Draw_game()
 
 bool play()
 {
-	ExMessage msg;//¶¨ÒåÒ»¸ö±äÁ¿À´¼ì²âÊó±ê
-	msg = getmessage();//»ñÈ¡Êó±êµÄĞÅÏ¢
+	ExMessage msg;//å®šä¹‰ä¸€ä¸ªå˜é‡æ¥æ£€æµ‹é¼ æ ‡
+	msg = getmessage();//è·å–é¼ æ ‡çš„ä¿¡æ¯
 	switch (msg.message)
 	{
-	case WM_LBUTTONDOWN://Ê¶±ğÊó±ê×ó¼ü
+	case WM_LBUTTONDOWN://è¯†åˆ«é¼ æ ‡å·¦é”®
 		BX = msg.x / 120;
 		BY = msg.y / 128;
 		if (Po[4] == BX && BY == 4)
@@ -56,12 +56,17 @@ bool play()
 				Po[i] = Po[i + 1];
 			}
 			Po[0] = rand() % 4;
-			printf("ºÚÉ«\n");
+			printf("é»‘è‰²\n");
 		}
 		else
 		{
-			printf("Ã»ÓĞµãµ½ºÚ¿é\n");
+			printf("æ²¡æœ‰ç‚¹åˆ°é»‘å—\n");
 			return true;
+		}
+		//æ£€æŸ¥
+		for (int i = 0; i < 5; i++)
+		{
+			printf("%d = %d\n", i, Po[i]);
 		}
 		break;
 	}
@@ -69,11 +74,11 @@ bool play()
 }
 
 
-//³ÌĞòÈë¿Ú
+//ç¨‹åºå…¥å£
 int main()
 {
-	srand(time(NULL));//Õâ¸öÊÇÄÃÊ±¼äµ±×÷ÖÖ×ÓÀ´Ëæ»úµÄ£¡
-	initgraph(480, 640, EX_SHOWCONSOLE);//5ĞĞ4ÁĞ
+	srand(time(NULL));//è¿™ä¸ªæ˜¯æ‹¿æ—¶é—´å½“ä½œç§å­æ¥éšæœºçš„ï¼
+	initgraph(480, 640, EX_SHOWCONSOLE);//5è¡Œ4åˆ—
 	Init_Black();
 	Draw_game();
 	while (1)
@@ -81,7 +86,9 @@ int main()
 		if (!play())
 		{
 			Draw_game();
+			
 		}
+		
 		
 	}
 
